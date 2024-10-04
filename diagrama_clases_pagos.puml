@@ -1,0 +1,8 @@
+@startuml TP 1 - Pagos
+class Pagos {
+    - id: int
+    - producto_id: int
+    - precio: float
+    - medio_pago: string
+}
+@enduml

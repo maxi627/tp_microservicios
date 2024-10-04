@@ -1,0 +1,8 @@
+@startuml TP 1 - Catalogo
+class Compra {
+    - id: int
+    - producto_id: int
+    - fecha_compra: datetime
+    - direccion_envio: string
+}
+@enduml

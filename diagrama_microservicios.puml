@@ -1,0 +1,21 @@
+@startuml TP 1
+actor "Usuario" as U
+card cardVeryLOOOOOOOOOOOOOOOOOOOg as "App e-Comercio" {
+    agent "App e-Comercio" as A
+    agent "ms-catalogo" as P
+    agent "ms-compras" as C
+    agent "ms-intentarios" as I
+    agent "ms-pagos" as G
+    database "DB" as DB
+}
+U -> A : (1) Selecciona el producto
+A -> P : (2) Consulta catalogo
+P -[dashed]-> DB : (2.a) Consulta si el producto esta disponible
+A -> C : (3) Persiste los datos comprados
+C -[dashed]-> DB : (3.a) Persiste los datos de la compra
+A -> G : (4) Procesa los pagos
+G -[dashed]-> DB : (4.a) Actualiza el estado de la compra
+A -> I : (5) Actualiza stock
+I -[dashed]-> DB : (5.a) Actualiza el stock
+@enduml
+

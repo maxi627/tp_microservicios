@@ -1,0 +1,8 @@
+@startuml TP 1 - Catalogo
+class Producto {
+    - id: int
+    - nombre: string
+    - precio: float
+    - activado: boolean
+}
+@enduml

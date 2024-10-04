@@ -1,0 +1,37 @@
+@startuml TP 1 - Diagrama de Secuencias
+actor "Usuario" as U
+boundary "App e-Comercio" as A
+boundary "ms-catalogo" as P
+boundary "ms-compras" as C
+boundary "ms-pagos" as G
+boundary "ms-intentarios" as I
+
+database data
+activate A
+U -> A: GET Producto por Id (Request)
+A -> P: GET Producto por Id (Request)
+activate P
+P <-> data: SELECT * FROM productos WHERE id = {id} and activo = true
+P -> A: Producto (Response)
+deactivate P
+A -> U: Producto (Response)
+
+activate C
+U -> A: POST Compra de Producto (Request)
+A -> C: POST Compra (Request)
+C <-> data: INSERT INTO compras
+C -> A: Compra (Response)
+deactivate C
+activate G
+A -> G: POST Pago (Request)
+G <-> data: INSERT pagos
+G -> A: Pago (Response)
+deactivate G
+activate I
+A -> I: POST Actualizar Stock (Request)
+I <-> data: INSERT stock
+I -> A: Stock (Response)
+deactivate I
+A -> U: "Compra Realizada"
+deactivate A
+@enduml
