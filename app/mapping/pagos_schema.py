@@ -1,5 +1,4 @@
 from marshmallow import fields, Schema, post_load, validate
-from sqlalchemy import DateTime
 
 class PagosSchema(Schema):
     id = fields.Integer(dump_only=True)
