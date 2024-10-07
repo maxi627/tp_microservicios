@@ -1,0 +1,22 @@
+version: '3'
+services:
+  db:
+    image: postgres:15.6
+    container_name: db
+    environment:
+      POSTGRES_USER: maxi
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: db_inta
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - red1
+
+volumes:
+  postgres_data:
+
+networks:
+  red1:
+    

@@ -3,7 +3,7 @@ from app import db
 from sqlalchemy import DateTime
 
 @dataclass
-class Categoria(db.Model):
+class Compra(db.Model):
     __tablename__ = 'Compra'
 
     id: int = db.Column('id', db.Integer, primary_key=True, autoincrement=True)

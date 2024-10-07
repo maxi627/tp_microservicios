@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from app import db
 
 @dataclass
-class Categoria(db.Model):
+class Pagos(db.Model):
     __tablename__ = 'Pagos'
     id: int = db.Column('id', db.Integer, primary_key=True, autoincrement=True)
     producto: int = db.Column('id', db.Integer, primary_key=True, autoincrement=True)
