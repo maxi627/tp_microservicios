@@ -1,5 +1,6 @@
 from marshmallow import fields, Schema, post_load, validate
 from sqlalchemy import DateTime
+from app.models import Compra
 
 class CompraSchema(Schema):
     id = fields.Integer(dump_only=True)

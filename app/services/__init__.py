@@ -1,2 +1,4 @@
-from app.services import compra_services
-from app.services import pagos_services
+from .compra_services import CompraService
+from .pagos_services import PagosService
+from .producto_services import ProductoService
+from .stock_services import StockService

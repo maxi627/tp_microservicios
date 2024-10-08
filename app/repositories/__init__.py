@@ -1,0 +1,4 @@
+from .compra_repository import CompraRepository
+from .pagos_repository import PagosRepository
+from .producto_repository import ProductoRepository
+from .stock_repository import StockRepository
