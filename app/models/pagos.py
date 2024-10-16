@@ -10,5 +10,3 @@ class Pagos(db.Model):
     precio: int = db.Column('precio', db.Integer, nullable=False)
     medio_pago: str = db.Column('medio_pago', db.Text, nullable=False)
 
-    # Relaciones
-    producto = db.relationship('Producto', backref='pagos', lazy=True)

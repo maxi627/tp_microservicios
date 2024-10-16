@@ -9,8 +9,3 @@ class Producto(db.Model):
     nombre: str = db.Column('nombre', db.String, nullable=False)  # Corregido de 'nambre' a 'nombre'
     precio: float = db.Column('precio', db.Float, nullable=False)
     activado: bool = db.Column('activado', db.Boolean, nullable=False)
-
-    # Relaciones
-    compras = db.relationship('Compra', backref='producto', lazy=True)
-    pagos = db.relationship('Pagos', backref='producto', lazy=True)
-    stocks = db.relationship('Stock', backref='producto', lazy=True)

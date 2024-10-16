@@ -11,8 +11,4 @@ class Compra(db.Model):
     fecha_compra: DateTime = db.Column('fecha_compra', db.DateTime, nullable=False)
     direccion_envio: str = db.Column('direccion_envio', db.Text, nullable=False)
 
-    # Relaciones
-    producto = db.relationship('Producto', backref='compras', lazy=True)
-
-
-
+ 
