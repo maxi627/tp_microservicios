@@ -18,7 +18,7 @@ def run_compose(file_path, action="up", detach=True):
 def manage_services(action="up"):
     """Gestiona todos los servicios de microservicios."""
     # Lista de nombres de servicios, según los archivos docker-compose
-    services = ["db", "pago", "compra"]
+    services = ["pago", "compra","producto","stock"]
     
     # Recorrer cada archivo docker-compose directamente en el mismo directorio
     for service in services:

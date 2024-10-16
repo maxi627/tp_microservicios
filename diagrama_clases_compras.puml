@@ -1,4 +1,4 @@
-@startuml TP 1 - Catalogo
+@startuml TP 1 - Compra
 class Compra {
     - id: int
     - producto_id: int

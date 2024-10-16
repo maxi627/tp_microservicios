@@ -20,12 +20,12 @@ def create_app() -> None:
     ma.init_app(app)
     migrate.init_app(app, db)
     
-    from app.resources import home, categoria, orden, producto, user
+    from app.resources import home, compra, pagos, producto, stock
     app.register_blueprint(home, url_prefix='/api/v1')
-    app.register_blueprint(user, url_prefix='/api/v1')
-    app.register_blueprint(orden, url_prefix='/api/v1')
+    app.register_blueprint(pagos, url_prefix='/api/v1')
+    app.register_blueprint(compra, url_prefix='/api/v1')
     app.register_blueprint(producto, url_prefix='/api/v1')
-    app.register_blueprint(categoria, url_prefix='/api/v1')
+    app.register_blueprint(stock, url_prefix='/api/v1')
 
    
     @app.shell_context_processor    
