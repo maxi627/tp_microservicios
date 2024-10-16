@@ -1,12 +1,11 @@
-version: '3'
 services:
   db:
     image: postgres:15.6
-    container_name: db
+    container_name: ecomercedb-servidor
     environment:
-      POSTGRES_USER: maxi
+      POSTGRES_USER: admin
       POSTGRES_PASSWORD: 1234
-      POSTGRES_DB: db
+      POSTGRES_DB: ecomercedb
     ports:
       - "5432:5432"
     volumes:
@@ -19,4 +18,3 @@ volumes:
 
 networks:
   red1:
-    
