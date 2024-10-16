@@ -29,7 +29,7 @@ class DevelopmentConfig(Config):
     FLASK_ENV = 'development'  # Define el entorno como desarrollo
     SQLALCHEMY_TRACK_MODIFICATIONS = True  # Habilita el seguimiento de modificaciones en SQLAlchemy
     # Cadena de conexión a PostgreSQL en el contenedor 'db'
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://maxi:1234@db:5432/db_inta'
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://admin:1234@db:5432/ecomercedb'
 
 # Configuración específica para el entorno de producción
 class ProductionConfig(Config):
@@ -38,7 +38,7 @@ class ProductionConfig(Config):
     TESTING = False  # Desactiva el modo de prueba
     SQLALCHEMY_RECORD_QUERIES = False  # Desactiva el registro de consultas en SQLAlchemy
     # Cadena de conexión a PostgreSQL en el contenedor 'db'
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://maxi:1234@db:5432/db_inta'
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://admin:1234@db:5432/ecomercedb'
 
 # Factory para seleccionar la configuración de la aplicación según el entorno
 def factory(entorno: str):
