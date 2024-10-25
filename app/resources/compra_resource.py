@@ -1,52 +1,15 @@
-from flask import jsonify, Blueprint, request
-from app.mapping import CompraSchema
-from app.services import CompraService
+from flask import Flask, jsonify, request
+from models import db, Compra
 
-compra = Blueprint('compra', __name__)
-service = CompraService()
-compra_schema = CompraSchema()
+app = Flask(__name__)
 
-"""
-Obtiene todas las compras
-"""
-@compra.route('/compras', methods=['GET'])
-def all():
-    resp = compra_schema.dump(service.get_all(), many=True) 
-    return resp, 200
+@app.route('/compras', methods=['POST'])
+def realizar_compra():
+    data = request.get_json()
+    nueva_compra = Compra(producto_id=data['producto_id'], cantidad=data['cantidad'])
+    db.session.add(nueva_compra)
+    db.session.commit()
+    return jsonify({'id': nueva_compra.id, 'producto_id': nueva_compra.producto_id, 'cantidad': nueva_compra.cantidad}), 201
 
-"""
-Obtiene un compra por id
-"""
-@compra.route('/compras/<int:id>', methods=['GET'])
-def one(id):
-    resp = compra_schema.dump(service.get_by_id(id)) 
-    return resp, 200
-
-"""
-Crea un nuevo compra
-"""
-@compra.route('/compras', methods=['POST'])
-def create():
-    compra = compra_schema.load(request.json)
-    resp = compra_schema.dump(service.create(compra))
-    return resp, 201
-
-"""
-Actualiza un compra existente
-"""
-@compra.route('/compras/<int:id>', methods=['PUT'])
-def update(id):
-    compra = compra_schema.load(request.json)
-    resp = compra_schema.dump(service.update(id, compra))
-    return resp, 200
-
-"""
-Elimina un compra existente
-"""
-@compra.route('/compras/<int:id>', methods=['DELETE'])
-def delete(id):
-    msg = "compra eliminado correctamente"
-    resp = service.delete(id)
-    if not resp:
-        msg = "No se pudo eliminar la compra"
-    return jsonify(msg), 204
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5001)

@@ -1,52 +1,18 @@
-from flask import jsonify, Blueprint, request
-from app.mapping import ProductoSchema
-from app.services import ProductoService
+from flask import Flask, jsonify
+from models import Producto 
 
-producto = Blueprint('producto', __name__)
-service = ProductoService()
-producto_schema = ProductoSchema()
+app = Flask(__name__)
 
-"""
-Obtiene todas las productos
-"""
-@producto.route('/productos', methods=['GET'])
-def all():
-    resp = producto_schema.dump(service.get_all(), many=True) 
-    return resp, 200
+@app.route('/productos/<int:id>', methods=['GET'])
+def get_producto(id):
+    producto = Producto.query.filter_by(id=id, activo=True).first()
+    if producto:
+        return jsonify({
+            'id': producto.id,
+            'nombre': producto.nombre,
+            'precio': producto.precio
+        }), 200
+    return jsonify({'error': 'Producto no encontrado'}), 404
 
-"""
-Obtiene un producto por id
-"""
-@producto.route('/productos/<int:id>', methods=['GET'])
-def one(id):
-    resp = producto_schema.dump(service.get_by_id(id)) 
-    return resp, 200
-
-"""
-Crea un nuevo producto
-"""
-@producto.route('/productos', methods=['POST'])
-def create():
-    producto = producto_schema.load(request.json)
-    resp = producto_schema.dump(service.create(producto))
-    return resp, 201
-
-"""
-Actualiza un producto existente
-"""
-@producto.route('/productos/<int:id>', methods=['PUT'])
-def update(id):
-    producto = producto_schema.load(request.json)
-    resp = producto_schema.dump(service.update(id, producto))
-    return resp, 200
-
-"""
-Elimina un producto existente
-"""
-@producto.route('/productos/<int:id>', methods=['DELETE'])
-def delete(id):
-    msg = "producto eliminado correctamente"
-    resp = service.delete(id)
-    if not resp:
-        msg = "No se pudo eliminar la producto"
-    return jsonify(msg), 204
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000)

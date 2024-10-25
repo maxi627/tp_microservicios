@@ -1,52 +1,15 @@
-from flask import jsonify, Blueprint, request
-from app.mapping import StockSchema
-from app.services import StockService
+from flask import Flask, jsonify, request
+from models import db, Stock
 
-stock = Blueprint('stock', __name__)
-service = StockService()
-stock_schema = StockSchema()
+app = Flask(__name__)
 
-"""
-Obtiene todas las stocks
-"""
-@stock.route('/stocks', methods=['GET'])
-def all():
-    resp = stock_schema.dump(service.get_all(), many=True) 
-    return resp, 200
+@app.route('/stock', methods=['POST'])
+def actualizar_stock():
+    data = request.get_json()
+    nuevo_stock = Stock(producto_id=data['producto_id'], cantidad=data['cantidad'], tipo=data['tipo'])
+    db.session.add(nuevo_stock)
+    db.session.commit()
+    return jsonify({'producto_id': nuevo_stock.producto_id, 'cantidad': nuevo_stock.cantidad, 'tipo': nuevo_stock.tipo}), 200
 
-"""
-Obtiene un stock por id
-"""
-@stock.route('/stocks/<int:id>', methods=['GET'])
-def one(id):
-    resp = stock_schema.dump(service.get_by_id(id)) 
-    return resp, 200
-
-"""
-Crea un nuevo stock
-"""
-@stock.route('/stocks', methods=['POST'])
-def create():
-    stock = stock_schema.load(request.json)
-    resp = stock_schema.dump(service.create(stock))
-    return resp, 201
-
-"""
-Actualiza un stock existente
-"""
-@stock.route('/stocks/<int:id>', methods=['PUT'])
-def update(id):
-    stock = stock_schema.load(request.json)
-    resp = stock_schema.dump(service.update(id, stock))
-    return resp, 200
-
-"""
-Elimina un stock existente
-"""
-@stock.route('/stocks/<int:id>', methods=['DELETE'])
-def delete(id):
-    msg = "stock eliminado correctamente"
-    resp = service.delete(id)
-    if not resp:
-        msg = "No se pudo eliminar la stock"
-    return jsonify(msg), 204
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5003)

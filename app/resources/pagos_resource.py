@@ -1,52 +1,15 @@
-from flask import jsonify, Blueprint, request
-from app.mapping import PagosSchema
-from app.services import PagosService
+from flask import Flask, jsonify, request
+from models import db, Pago
 
-pagos = Blueprint('pagos', __name__)
-service = PagosService()
-pagos_schema = PagosSchema()
+app = Flask(__name__)
 
-"""
-Obtiene todas los pagos
-"""
-@pagos.route('/pagos', methods=['GET'])
-def all():
-    resp = pagos_schema.dump(service.get_all(), many=True) 
-    return resp, 200
+@app.route('/pagos', methods=['POST'])
+def realizar_pago():
+    data = request.get_json()
+    nuevo_pago = Pago(compra_id=data['compra_id'], monto=data['monto'])
+    db.session.add(nuevo_pago)
+    db.session.commit()
+    return jsonify({'id': nuevo_pago.id, 'compra_id': nuevo_pago.compra_id, 'monto': nuevo_pago.monto}), 201
 
-"""
-Obtiene un pago por id
-"""
-@pagos.route('/pagos/<int:id>', methods=['GET'])
-def one(id):
-    resp = pagos_schema.dump(service.get_by_id(id)) 
-    return resp, 200
-
-"""
-Crea un nuevo pago
-"""
-@pagos.route('/pagos', methods=['POST'])
-def create():
-    pagos = pagos_schema.load(request.json)
-    resp = pagos_schema.dump(service.create(pagos))
-    return resp, 201
-
-"""
-Actualiza un pago existente
-"""
-@pagos.route('/pagos/<int:id>', methods=['PUT'])
-def update(id):
-    pagos = pagos_schema.load(request.json)
-    resp = pagos_schema.dump(service.update(id, pagos))
-    return resp, 200
-
-"""
-Elimina un pago existente
-"""
-@pagos.route('/pagos/<int:id>', methods=['DELETE'])
-def delete(id):
-    msg = "pagos eliminados correctamente"
-    resp = service.delete(id)
-    if not resp:
-        msg = "No se pudo eliminar los pagos"
-    return jsonify(msg), 204
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5002)

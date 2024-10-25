@@ -1,0 +1,99 @@
+services:
+    ecomerce:
+        image: microservicio:version
+        container_name: ecomerce
+        ports:
+            - 5000:5000
+        networks:
+            - mired
+        environment:
+            - FLASK_CONTEXT=${FLASK_CONTEXT}
+            # el valor de REDIS_HOST = al container_name que tiene en su propio docker-compose.yml
+            - REDIS_HOST=${REDIS_HOST}
+            - REDIS_PORT=${REDIS_PORT}
+            - REDIS_PASSWORD=${REDIS_PASSWORD}
+            - REDIS_DB=${REDIS_DB}
+            # el valor de MSCATALOGO_URL, MSPAGOS_URL, MSCOMPRAS_URL, MSINVENTARIOS_URL = al container_name con el puerto 5000 ejemplo http://mscatalogo:5000
+            # desde el microservicio ecomerce se puede acceder a los microservicios mscatalogo, mspagos, mscompras, msinventarios por el container_name:puerto
+            # desde el host se accede a los microservicios como http://localhost:puerto ejemplo http://localhost:5001 para mscatalogo, http://localhost:5002 para mspagos, http://localhost:5003 para mscompras, http://localhost:5004 para msinventarios
+            - MSCATALOGO_URL=${MSCATALOGO_URL}
+            - MSPAGOS_URL=${MSPAGOS_URL}
+            - MSCOMPRAS_URL=${MSCOMPRAS_URL}
+            - MSINVENTARIOS_URL=${MSINVENTARIOS_URL}
+    mscatalogo:
+        image: microservicio:version
+        container_name: mscatalogo
+        depends_on:
+            - ecomerce
+        ports:
+            - 5001:5000
+        networks:
+            - mired
+        environment:
+            - FLASK_CONTEXT=${FLASK_CONTEXT}
+            - REDIS_HOST=${REDIS_HOST}
+            - REDIS_PORT=${REDIS_PORT}
+            - REDIS_PASSWORD=${REDIS_PASSWORD}
+            - REDIS_DB=${REDIS_DB}
+            # la URI para el servidor se obtiene de container_name del docker-compose de postgresql: [postgresql://usuario:password@postgresql-servidor:5432/ecommerce]
+            - TEST_DATABASE_URI=${TEST_DATABASE_URI}
+            - DEV_DATABASE_URI=${DEV_DATABASE_URI}
+            - PROD_DATABASE_URI=${PROD_DATABASE_URI}
+    mspagos:
+        image: microservicio:version
+        container_name: mspagos
+        depends_on:
+            - ecomerce
+        ports:
+            - 5002:5000
+        networks:
+            - mired
+        environment:
+            - FLASK_CONTEXT=${FLASK_CONTEXT}
+            - REDIS_HOST=${REDIS_HOST}
+            - REDIS_PORT=${REDIS_PORT}
+            - REDIS_PASSWORD=${REDIS_PASSWORD}
+            - REDIS_DB=${REDIS_DB}
+            - TEST_DATABASE_URI=${TEST_DATABASE_URI}
+            - DEV_DATABASE_URI=${DEV_DATABASE_URI}
+            - PROD_DATABASE_URI=${PROD_DATABASE_URI}
+    mscompras:
+        image: microservicio:version
+        container_name: mscompras
+        depends_on:
+            - ecomerce
+        ports:
+            - 5003:5000
+        networks:
+            - mired
+        environment:
+            - FLASK_CONTEXT=${FLASK_CONTEXT}
+            - REDIS_HOST=${REDIS_HOST}
+            - REDIS_PORT=${REDIS_PORT}
+            - REDIS_PASSWORD=${REDIS_PASSWORD}
+            - REDIS_DB=${REDIS_DB}
+            - TEST_DATABASE_URI=${TEST_DATABASE_URI}
+            - DEV_DATABASE_URI=${DEV_DATABASE_URI}
+            - PROD_DATABASE_URI=${PROD_DATABASE_URI}
+    msinventarios:
+        image: microservicio:version
+        container_name: msinventarios
+        depends_on:
+            - ecomerce
+        ports:
+            - 5004:5000
+        networks:
+            - mired
+        environment:
+            - FLASK_CONTEXT=${FLASK_CONTEXT}
+            - REDIS_HOST=${REDIS_HOST}
+            - REDIS_PORT=${REDIS_PORT}
+            - REDIS_PASSWORD=${REDIS_PASSWORD}
+            - REDIS_DB=${REDIS_DB}
+            - TEST_DATABASE_URI=${TEST_DATABASE_URI}
+            - DEV_DATABASE_URI=${DEV_DATABASE_URI}
+            - PROD_DATABASE_URI=${PROD_DATABASE_URI}
+# Todos los microservicios y servicios (redis, postgresql) deben estar en la misma red
+networks:
+    mired:
+        external: true

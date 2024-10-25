@@ -1,0 +1,13 @@
+services:
+  api:
+    build:
+      context: .  # Ajusta el contexto según la estructura de tu proyecto
+    container_name: stock_service
+    networks:
+      - red1  # Usa el nombre correcto de la red
+    ports:
+      - "5004:5432"
+
+networks:
+  red1:
+    external: true
