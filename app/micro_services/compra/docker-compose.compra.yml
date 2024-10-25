@@ -1,17 +1,13 @@
-version: '3'
 services:
   api:
     build:
-      context: ./compra  # Ajusta el contexto según la estructura de tu proyecto
-      dockerfile: Dockerfile
+      context: . # Ajusta el contexto según tu proyecto
     container_name: compra_service
-    depends_on:
-      - db  # Cambia 'db' por el nombre del contenedor o servicio
     networks:
-      - red1  # Usa el nombre correcto de la red
+      - red1
     ports:
-      - "5002:5002"
+      - "5002:5000"
 
 networks:
-    red1:
+  red1:
     external: true

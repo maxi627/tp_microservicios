@@ -1,17 +1,13 @@
-version: '3'
 services:
   api:
     build:
-      context: ./pago  # Cambia esto según tu estructura
-      dockerfile: Dockerfile
+      context: . # Ajusta el contexto según tu proyecto
     container_name: pago_service
-    depends_on:
-      - db  
     networks:
       - red1
     ports:
-      - "5001:5001"  
+      - "5001:5000"
 
 networks:
-    red1:
-    external: true  
+  red1:
+    external: true

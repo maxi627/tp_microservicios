@@ -6,7 +6,7 @@ services:
     networks:
       - red1
     ports:
-      - "5004:5432"
+      - "5004:5000"
 
 networks:
   red1:
