@@ -12,4 +12,4 @@ def realizar_compra():
     return jsonify({'id': nueva_compra.id, 'producto_id': nueva_compra.producto_id, 'cantidad': nueva_compra.cantidad}), 201
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5001)
+    app.run(host='0.0.0.0', port=5002)

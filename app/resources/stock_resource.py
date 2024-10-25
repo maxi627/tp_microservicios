@@ -12,4 +12,4 @@ def actualizar_stock():
     return jsonify({'producto_id': nuevo_stock.producto_id, 'cantidad': nuevo_stock.cantidad, 'tipo': nuevo_stock.tipo}), 200
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5003)
+    app.run(host='0.0.0.0', port=5004)

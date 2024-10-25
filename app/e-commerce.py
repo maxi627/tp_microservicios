@@ -2,24 +2,24 @@
 import requests
 
 def obtener_producto(id_producto):
-    url = f"http://ms-producto:5004/productos/{id_producto}"
+    url = f"http://producto_service:5003/productos/{id_producto}"
     response = requests.get(url)
     return response.json() if response.status_code == 200 else None
 
 def realizar_compra(producto_id, cantidad):
-    url = "http://ms-compras:5003/compras"
+    url = "http://compra_service:5002/compras"
     data = {'producto_id': producto_id, 'cantidad': cantidad}
     response = requests.post(url, json=data)
     return response.json() if response.status_code == 201 else None
 
 def realizar_pago(compra_id, monto):
-    url = "http://ms-pagos:5001/pagos"
+    url = "http://pago_service:5001/pagos"
     data = {'compra_id': compra_id, 'monto': monto}
     response = requests.post(url, json=data)
     return response.json() if response.status_code == 201 else None
 
 def actualizar_stock(producto_id, cantidad):
-    url = "http://ms-stock:5003/stock"
+    url = "http://stock_service:5004/stock"
     data = {'producto_id': producto_id, 'cantidad': cantidad, 'tipo': 'salida'}
     response = requests.post(url, json=data)
     return response.json() if response.status_code == 200 else None

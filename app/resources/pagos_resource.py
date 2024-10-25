@@ -12,4 +12,4 @@ def realizar_pago():
     return jsonify({'id': nuevo_pago.id, 'compra_id': nuevo_pago.compra_id, 'monto': nuevo_pago.monto}), 201
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5002)
+    app.run(host='0.0.0.0', port=5001)
