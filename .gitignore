@@ -133,5 +133,3 @@ include/
 lib64
 pyvenv.cfg
 
-# Docker
-docker-compose.yml
