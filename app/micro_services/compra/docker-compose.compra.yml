@@ -9,6 +9,8 @@ services:
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_HOST: ecomercedb-servidor
       POSTGRES_PORT: 5432
+    env_file:
+      - ../../../.env  
 
     ports:
       - "5002:5000"
@@ -16,3 +18,4 @@ services:
 networks:
   red1:
     external: true
+
