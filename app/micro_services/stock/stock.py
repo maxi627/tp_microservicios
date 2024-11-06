@@ -13,10 +13,11 @@ app = Flask(__name__)
 
 
 # Función para conectar a la base de datos
+
 def get_db_connection():
     try:
         conn = psycopg2.connect(
-            host="ecomercedb-servidor",
+            host="172.21.0.2",
             database="ecomercedb",
             user="admin",
             password="1234",
@@ -26,6 +27,7 @@ def get_db_connection():
     except psycopg2.OperationalError as e:
         app.logger.error(f"Error de conexión a la base de datos: {e}")
         return None
+
 
 
 # Endpoint para obtener todos los stock
