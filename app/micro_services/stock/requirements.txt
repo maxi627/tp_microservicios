@@ -1,0 +1,20 @@
+werkzeug>=3.0.1
+python-dotenv==1.0.1
+Flask-SQLAlchemy==3.1.1
+SQLAlchemy==2.0.22
+pymysql===1.1.0
+mysqlclient==2.2.0
+Flask==3.0.3
+flask-marshmallow==0.15.0
+marshmallow==3.20.1
+azure-monitor-opentelemetry==1.0.0
+setuptools>=65.5.1 # not directly required, pinned by Snyk to avoid a vulnerability
+Flask-Migrate==4.0.4
+psycopg2==2.9.7
+psycopg[binary]
+
+passlib==1.7.4 # Para demostrar Liskov Substitution Principle alternando con werkzeug.security
+sqlalchemy-easy-softdelete==0.8.3
+Flask-jwt-extended==4.6.0
+Flask-Migrate 
+psycopg2-binary
