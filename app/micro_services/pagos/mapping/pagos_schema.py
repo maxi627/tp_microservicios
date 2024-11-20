@@ -1,5 +1,5 @@
 from marshmallow import fields, Schema, post_load, validate
-from app.models import Pagos
+from pagos.models import Pagos
 
 class PagosSchema(Schema):
     id = fields.Integer(dump_only=True)

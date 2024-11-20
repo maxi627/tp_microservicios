@@ -1,0 +1,1 @@
+from compra.models import compra

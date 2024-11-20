@@ -1,0 +1,1 @@
+from producto.mapping import producto_schema

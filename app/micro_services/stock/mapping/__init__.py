@@ -1,0 +1,1 @@
+from stock.mapping import stock_schema

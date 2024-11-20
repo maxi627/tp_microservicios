@@ -1,0 +1,1 @@
+from pagos.models import pagos

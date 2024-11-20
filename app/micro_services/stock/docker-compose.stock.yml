@@ -18,4 +18,4 @@ services:
 
 networks:
   red1:
-    external: true
+    external: true 

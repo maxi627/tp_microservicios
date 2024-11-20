@@ -1,0 +1,1 @@
+from compra.mapping import compra_schema
