@@ -1,1 +1,2 @@
-from compra.mapping import compra_schema
+from .compra_schema import CompraSchema
+from .response_schema import ResponseSchema

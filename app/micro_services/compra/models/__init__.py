@@ -1,1 +1,1 @@
-from compra.models import compra
+from .compra import Compra
